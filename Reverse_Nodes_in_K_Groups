@@ -1,0 +1,48 @@
+// Code 4: Reverse Nodes in K-Groups
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+ public:
+ int count_node(ListNode* head){
+     int count=0;
+     while(head!=NULL){
+         count++;
+         head=head->next;
+     }
+     return count;
+ }   
+       ListNode* reverseKGroup(ListNode* head, int k) {
+        
+        if(head==NULL || count_node(head)<k ){
+        return head;
+        
+    }
+    //step 1; reverse first k nodes
+     ListNode* next=NULL;
+     ListNode* curr=head;
+     ListNode* prev=NULL;
+      int c=0;
+      while(curr!=NULL && c<k){
+        next = curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+        c++;
+        
+    }
+    //step 2 recursiiom
+    if(next!=NULL){
+        head->next=reverseKGroup(next, k);
+    }
+    // step output
+    return prev;
+    }
+};
